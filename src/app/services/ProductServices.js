@@ -32,7 +32,7 @@ export default class Category {
       http.post('/products', body).then(({ data }) => {
         const product = {
           name: data.name,
-          id: data._id,
+          id: data.variation_id,
           sku: data.sku,
           images: data.images,
           desc: data.desc,

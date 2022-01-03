@@ -26,7 +26,6 @@ export const login = (params) => {
         dispatch({type: ActionTypes.USER_LOGIN_SUCCESS, data});
       })
       .catch((message) => {
-        console.warn(message)
         dispatch({type: ActionTypes.USER_LOGIN_FAIL, message});
       });
   };

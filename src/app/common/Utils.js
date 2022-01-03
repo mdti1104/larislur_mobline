@@ -28,7 +28,6 @@ Utils.getPageTitle = nav => {
   const profileScreens = ['EditProfileScreen', 'ChangePassword'];
   const currentPage = last(routes);
   if (profileScreens.includes(currentPage.routeName)) return I18n.t('quickLinks.profile');
-  console.warn(currentPage)
   const pageInfo = QUICK_LINKS.filter((item) => item.key === currentPage.routeName);
   const pageName = get(pageInfo, '0.name');
   return I18n.t(pageName);

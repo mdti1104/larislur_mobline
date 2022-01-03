@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { slice, get } from 'lodash';
 import DropdownAlert from 'react-native-dropdownalert';
 import randomId from 'random-id';
-
+import http from '../../services/http';
 import { ResponsiveUtils, Colors, Constants, Utils } from '@common';
 import ProductItem from '@components/ProductItem';
 import OrderItem from '@components/OrderItem';
@@ -27,6 +27,7 @@ import ModalSelect from '@components/ModalSelect';
 import I18n from '@common/I18n';
 import { ActionCreators } from '@actions';
 import { styles as dynamicStyles } from './style';
+import { element } from 'prop-types';
 
 const { NUMBER_ITEMS_PER_PAGE, NUMBER_OF_ORDER_LENGTH, VAT } = Constants;
 
@@ -136,7 +137,9 @@ const POS = ({ navigation }) => {
     setCustomerSelected(null);
     setOrders([]);
   }
-
+  fetchOrderId = () => {
+    console.warn('test')
+  }
   handleLoadMore = () => {
     const start = page * NUMBER_ITEMS_PER_PAGE;
     const end = (page + 1) * NUMBER_ITEMS_PER_PAGE;
@@ -184,14 +187,35 @@ const POS = ({ navigation }) => {
   onChangeQuantity = (productId, quantity) => {
     const newOrders = orders.map(item =>
       item.product.id === productId ? { ...item, quantity } : item);
-    setOrders(newOrders);
+     setOrders(newOrders);
   }
 
   onChangeSearch = (text = '') => {
     setTextSearch(text.trim());
     search(categoryFilter, text.trim());
   }
+  onChangeOrderId = (text = '') => {
+    http.get('/connector/api/orderid/'+text).then(({ data }) => {
+     const order = data.data
+     const res = []
+     order.forEach(element => {
+       if(element.variation_id){
+         var id = element.variation_id
+       }else{
+        var id = element.id_product
+       }
+       console.log(id)
+      var result = products.filter(item => item.id === id)[0];
+      if (result) {
+        res.push({ product : result, quantity: element.quantity })        
+      }
+     })
+     setOrders(res)
+    }).catch(error => {
+      console.warn(error)
 
+    });
+  }
   onSelectCategory = (categoryId) => {
     setCategoryFilter(categoryId)
     search(categoryId, textSearch);
@@ -269,8 +293,9 @@ const POS = ({ navigation }) => {
         <View style={styles.searchContainer}>
           <Image source={useDynamicValue(icSearch)} style={styles.icSearch} />
           <TextInput
-            onChangeText={onChangeSearch}
             style={styles.textSearch}
+            onChangeText={onChangeOrderId}
+
             placeholder={I18n.t("pos.orderid")}
             placeholderTextColor={useDynamicValue(Colors.placeholderColor.light, Colors.placeholderColor.dark)}
           />
