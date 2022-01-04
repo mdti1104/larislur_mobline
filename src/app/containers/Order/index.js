@@ -9,7 +9,8 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { useDynamicStyleSheet } from 'react-native-dark-mode';
-import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import RNPrint from 'react-native-print';
 import { useDispatch, useSelector } from 'react-redux';
 import { slice, get } from 'lodash';
 import moment from 'moment';
@@ -21,7 +22,8 @@ import I18n from '@common/I18n';
 import { styles as dynamicStyles } from './style';
 import Modal from '@components/Modal';
 import TextInput from '@components/TextInput';
-
+import http from '../../services/http'
+import Axios from 'axios';
 
 const { NUMBER_ITEMS_PER_PAGE, MIN_LENGTH_SEARCH } = Constants;
 
@@ -52,10 +54,8 @@ const HistoryTab = ({
   data,
   onPressItem,
   handleLoadMore,
-  setDatePickerVisible,
-  dateFilter,
+  printInvoice,
   selectedItem,
-  onChangeTextSearch,
   isLoading,
   currency,
 }) => {
@@ -123,6 +123,7 @@ const RenderOrderDetail = ({
   styles,
   setVisibleLangModal,
   child,
+  printInvoice
 }) => {
 
   return (
@@ -135,11 +136,15 @@ const RenderOrderDetail = ({
                 <PaymentRows key={item} styles={styles}setVisibleLangModal={setVisibleLangModal} child={item.product}/>
               )}
       />    
-      
-   
-      <Text style={styles.fieldLabel}>{I18n.t('order.items')}</Text>
-    
       <View style={styles.borderLine} />
+      <View style={styles.row}>
+      <TouchableOpacity
+
+              style={styles.btnPay}
+              onPress={printInvoice}>
+              <Text style={styles.lbpay}>Selesai</Text>
+        </TouchableOpacity>
+      </View>
      
    
     </ScrollView>
@@ -204,7 +209,13 @@ const Order = (props) => {
     setData(payment);
     setOrderDetail(get(allOrders, '0'));
   }
-  
+  const printInvoice= async () => {
+
+    const result = await Axios.get('http://192.168.43.106:8000/sells/1/83/print')
+    await RNPrint.print({
+      html: result.data.receipt.html_content
+    })
+  }
   handleLoadMore = () => {
     const start = page * NUMBER_ITEMS_PER_PAGE;
     const end = (page + 1) * NUMBER_ITEMS_PER_PAGE;
@@ -285,6 +296,8 @@ const Order = (props) => {
             styles={styles}
             isLoadingMore = {isLoadingMore}
             child={dataProduct.items}
+            printInvoice={({ item }) => printInvoice(item)}
+
           />
         }
       </View>

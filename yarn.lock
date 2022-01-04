@@ -6019,6 +6019,11 @@ react-native-gesture-handler@^1.5.3:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-html-to-pdf@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/react-native-html-to-pdf/-/react-native-html-to-pdf-0.12.0.tgz#2b467296f85c9c9783a7288b19722a7028dcbcb8"
+  integrity sha512-Yb5WO9SfF86s5Yv9PqXQ7fZDr9zZOJ+6jtweT9zFLraPNHWX7pSxe2dSkeg3cGiNrib65ZXGN6ksHymfYLFSSg==
+
 react-native-image-picker@^2.2.1:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-2.4.0.tgz#33231ac6d7794193d595b4e13ca6167fc4d523ef"
@@ -6128,6 +6133,11 @@ react-native-popup-menu@^0.15.7:
   version "0.15.10"
   resolved "https://registry.yarnpkg.com/react-native-popup-menu/-/react-native-popup-menu-0.15.10.tgz#49f2a67c8d1ea329f44e56288eca4a5c04835828"
   integrity sha512-w7MaicsfpclK7g/omjMchNaXwhMi0apt/DC734AbHuJTWCfv5mF3JgL1UzRW19ncFMBRfQeYapPy/zUyJCGgEQ==
+
+react-native-print@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/react-native-print/-/react-native-print-0.10.0.tgz#803b28592c1605d2bdba80fc909fcdbced0d069f"
+  integrity sha512-jXFIeTLiQeC9rTduRjMGXWzGEaslx69U64tsw851+v2fbfNwn4SP53uEIhCCc0ly3VxGCFxseafrZjfuMyVXNg==
 
 react-native-reanimated@^1.4.0:
   version "1.13.2"

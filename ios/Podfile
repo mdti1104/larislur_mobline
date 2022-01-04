@@ -15,6 +15,10 @@ target 'pos_ipad' do
   use_flipper!
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'react-native-html-to-pdf', :path => '../node_modules/react-native-html-to-pdf'
+
+  pod 'react-native-print', :path => '../node_modules/react-native-print'
+
   post_install do |installer|
     flipper_post_install(installer)
   end

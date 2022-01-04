@@ -108,10 +108,13 @@ export const styles = new DynamicStyleSheet({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
     marginHorizontal: -ResponsiveUtils.normalize(8),
   },
   column: {
     flex: 1,
+    alignItems: 'center',
+
     marginHorizontal: ResponsiveUtils.normalize(8),
   },
   modalStyle: {
@@ -136,6 +139,7 @@ export const styles = new DynamicStyleSheet({
   },
   btnPay: {
     flexDirection: 'row',
+    textAlign:'center',
     alignItems: 'center',
     backgroundColor: ThemeUtils.getDynamicValue('primaryColor'),
     marginTop: ResponsiveUtils.normalize(13),
